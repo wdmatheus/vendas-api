@@ -326,5 +326,8 @@ dotnet_diagnostic.S144.severity = none
 # S125: Remove this commented out code.
 dotnet_diagnostic.S144.severity = none
 
+# S1118: none
+dotnet_diagnostic.S1118.severity = none
+
 # S6966: Await RunAsync instead
 dotnet_diagnostic.S6966.severity = none
