@@ -1,10 +1,12 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.SystemConsole.Themes;
+using Vendas.Data;
 
 namespace Vendas.Api.Config;
 
@@ -71,6 +73,24 @@ internal static class WebApplicationBuilderExtensions
         });
 
         builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+
+        return builder;
+    }
+    
+    internal static WebApplicationBuilder ConfigureDatabase(this WebApplicationBuilder builder)
+    {
+        var connection = builder.Configuration.GetConnectionString("Default")!;
+
+        builder.Services.AddDbContextPool<DataContext>(optionsBuilder =>
+            optionsBuilder.UseCustomNpgsql(connection, builder.Environment.IsDevelopment())
+                .UseModel(Data.CompiledModels.DataContextModel.Instance)
+        );
+
+        if (builder.Environment.IsDevelopment())
+        {
+            var context = builder.Services.BuildServiceProvider().GetRequiredService<DataContext>();
+            context.Database.Migrate();
+        }
 
         return builder;
     }

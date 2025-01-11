@@ -5,6 +5,7 @@ var builder = WebApplication.CreateSlimBuilder(args);
 
 builder.ConfigureServices()
     .ConfigureServer()
+    .ConfigureDatabase()
     .ConfigureProblemsDetails()
     .ConfigureLogger();
 
