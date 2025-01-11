@@ -1,4 +1,5 @@
 using Vendas.Api.Config;
+using Vendas.Api.Endpoints;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -14,8 +15,7 @@ app.UseExceptionHandler();
 app.MapOpenApi();
 app.UseStatusCodePages();
 app.UseDeveloperExceptionPage();
-
-app.MapGet("/", () => "Hello World!");
+DocsEndpoints.Map(app);
 
 app.Run();
 
