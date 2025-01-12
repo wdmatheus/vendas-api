@@ -12,7 +12,7 @@ namespace Vendas.Data.CompiledModels
     public partial class DataContextModel
     {
         private DataContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("7e519c44-d642-497e-b9be-3329677ecf5b"), entityTypeCount: 2)
+            : base(skipDetectChanges: false, modelId: new Guid("4343403c-0bae-4636-a03a-876064215394"), entityTypeCount: 2)
         {
         }
 
