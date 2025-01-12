@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using Vendas.Api.Dtos;
+using Vendas.Api.Features.Vendas;
 
 namespace Vendas.Api.Config;
 
@@ -15,6 +17,9 @@ namespace Vendas.Api.Config;
     UseStringEnumConverter = true
 )]
 [JsonSerializable(typeof(ProblemDetails))]
+[JsonSerializable(typeof(CriarVendaRequest))]
+[JsonSerializable(typeof(EditarVendaRequest))]
+[JsonSerializable(typeof(VendaDto))]
 internal sealed partial class AppJsonSerializerContext : JsonSerializerContext
 {
 }

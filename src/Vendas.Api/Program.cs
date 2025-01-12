@@ -17,6 +17,7 @@ app.MapOpenApi();
 app.UseStatusCodePages();
 app.UseDeveloperExceptionPage();
 DocsEndpoints.Map(app);
+VendaEndpoints.Map(app);
 
 app.Run();
 
