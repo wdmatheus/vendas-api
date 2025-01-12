@@ -31,6 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\Vendas.Api\Vendas.Api.csproj" />
       <ProjectReference Include="..\..\src\Vendas.Core\Vendas.Core.csproj" />
     </ItemGroup>
 

@@ -20,7 +20,7 @@
 
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-            <_Parameter1>TesteOminaGht.Tests</_Parameter1>
+            <_Parameter1>Vendas.Tests</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
 
