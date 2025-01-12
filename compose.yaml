@@ -1,0 +1,65 @@
+name: vendas
+
+services:
+
+  db:
+    image: postgres:latest
+    container_name: vendas-db
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=vendas_omina
+      - PGPORT=5433
+    volumes:     
+      - ./postgres-data:/var/lib/postgresql/data    
+    healthcheck:
+      test: [ "CMD", "pg_isready", "--username", "postgres" ]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+      start_interval: 1s
+    ports:
+      - "5433:5433"
+  
+  migrations:
+    container_name: vendas-migrations
+    image: vendas-migrations
+    restart: no
+    build:
+      args:
+        BUILDPLATFORM: linux/amd64
+        TARGETARCH: x64        
+      context: .
+      dockerfile: Dockerfile.migrations
+      target: runner
+    environment:
+      CONNECTION_STR: User ID=postgres;Password=123456;Host=db;Port=5433;Database=vendas_omina;Pooling=true;Minimum Pool Size=50;Maximum Pool Size=50;
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5050:5050"
+
+  api:
+    container_name: vendas-api
+    image: vendas-api    
+    build:
+      args:
+        BUILDPLATFORM: linux/amd64
+        TARGETARCH: x64
+      context: .
+      target: final
+    environment:
+      - ASPNETCORE_URLS=http://*:5050
+      - ConnectionStrings__Default=User ID=postgres;Password=123456;Host=db;Port=5433;Database=vendas_omina;Pooling=true;Minimum Pool Size=50;Maximum Pool Size=50;    
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+    ports:
+      - "5050:5050"
+        
+networks:
+  vendas:
+    driver: bridge
+    name: vendas

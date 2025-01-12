@@ -19,7 +19,7 @@
         <ProjectReference Include="..\Vendas.Core\Vendas.Core.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
         <Content Include="..\Vendas.Api\appsettings.Development.json" Link="appsettings.json" CopyToOutputDirectory="PreserveNewest"/>
     </ItemGroup>
 

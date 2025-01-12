@@ -13,7 +13,6 @@ internal static class VendaEndpoints
     internal static void Map(WebApplication app)
     {
         var group = app.MapGroup("/v1/vendas")
-            .WithOpenApi()
             .WithGroupName("v1")
             .WithTags("vendas");
 

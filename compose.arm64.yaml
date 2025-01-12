@@ -1,0 +1,13 @@
+name: vendas
+
+services:
+  migrations:
+    build:
+      args:
+        BUILDPLATFORM: linux/arm64
+        TARGETARCH: arm64
+  api:
+    build:
+      args:
+        BUILDPLATFORM: linux/arm64
+        TARGETARCH: arm64

@@ -1,0 +1,37 @@
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/nightly/sdk:9.0 AS sdk
+
+FROM --platform=$BUILDPLATFORM debian:bookworm-slim AS runtime
+
+FROM sdk AS build
+
+WORKDIR /source
+
+ARG TARGETARCH
+
+COPY ./*.sln .
+COPY ./*.props .
+COPY ./src/*/*.csproj .
+
+RUN for file in $(ls *.csproj); do mkdir -p src/${file%.*}/ && mv $file ./src/${file%.*}/; done
+
+RUN dotnet restore -r linux-$TARGETARCH ./src/Vendas.Data/Vendas.Data.csproj
+
+COPY . .
+
+WORKDIR ./src/Vendas.Data
+
+RUN dotnet tool install --global dotnet-ef && \
+    export PATH="$PATH:/root/.dotnet/tools" && \
+    dotnet ef migrations bundle --self-contained -r linux-$TARGETARCH
+
+FROM runtime AS runner
+
+RUN apt-get update && apt-get install -y libicu-dev --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /root/.dotnet/ /root/.dotnet/
+COPY --from=build /source/src/Vendas.Data/efbundle /efmigrations/
+
+WORKDIR /efmigrations
+
+CMD ./efbundle --connection "$CONNECTION_STR"
+

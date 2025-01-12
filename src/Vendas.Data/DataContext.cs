@@ -59,7 +59,7 @@ public class DbContextFactory : IDesignTimeDbContextFactory<DataContext>
     public DataContext CreateDbContext(string[] args)
     {
         var config = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.json", true)
             .Build();
         var builder = new DbContextOptionsBuilder<DataContext>();
         builder.UseCustomNpgsql(config.GetConnectionString("Default")!, true);

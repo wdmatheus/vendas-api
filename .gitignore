@@ -333,6 +333,9 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
+postgres-data/
+
+
 *.env
 
 .DS_Store
