@@ -33,8 +33,8 @@ services:
       context: .
       dockerfile: Dockerfile.migrations
       target: runner
-    environment:
-      CONNECTION_STR: User ID=postgres;Password=123456;Host=db;Port=5433;Database=vendas_omina;Pooling=true;Minimum Pool Size=50;Maximum Pool Size=50;
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
@@ -50,9 +50,8 @@ services:
         TARGETARCH: x64
       context: .
       target: final
-    environment:
-      - ASPNETCORE_URLS=http://*:5050
-      - ConnectionStrings__Default=User ID=postgres;Password=123456;Host=db;Port=5433;Database=vendas_omina;Pooling=true;Minimum Pool Size=50;Maximum Pool Size=50;    
+    env_file:
+      - .env
     depends_on:
       migrations:
         condition: service_completed_successfully

@@ -34,5 +34,5 @@ COPY --from=build /source/src/Vendas.Data/efbundle /efmigrations/
 
 WORKDIR /efmigrations
 
-CMD ./efbundle --connection "$CONNECTION_STR"
+CMD ./efbundle --connection "$ConnectionStrings__Default"
 
