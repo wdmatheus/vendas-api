@@ -28,13 +28,13 @@ API de vendas desenvolvida em dotnet core 9.0.
 
 Para executar a aplicação, é necessário ter o SDK .NET 9.0 instalado, além do banco de dados Postgres instalado ou executando em um container Docker. Com ambos instalado, execute o comando abaixo:
 
-Se necessário modifique a string de conexão com o banco de dados no arquivo [`appsettings.Development.json`](./src/Vendas.Api/appsettings.Development.json).
-
 ```bash
 dotnet run --project src/Vendas.Api/Vendas.Api.csproj
 ```
 
 A aplicação estará disponível em `http://localhost:5050`. A documentação da API estará disponível em `http://localhost:5050/docs`.
+
+Se necessário modifique a string de conexão com o banco de dados no arquivo [`appsettings.Development.json`](./src/Vendas.Api/appsettings.Development.json).
 
 ## Executando os testes
 
