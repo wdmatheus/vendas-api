@@ -19,6 +19,7 @@ internal static class VendaEndpoints
         group.MapGet("{id:guid}", ObterAsync)
             .Produces<VendaDto>()
             .Produces<ProblemDetails>(StatusCodes.Status404NotFound)
+            .WithName("ObterPorId")
             .WithDescription("Obtém uma venda");
 
         group.MapPost("", CriarAsync)
@@ -78,7 +79,7 @@ internal static class VendaEndpoints
         var response = await sender.Send(request, ct);
 
         return response.Match<IResult>(
-            id => TypedResults.Created(new Uri($"/v1/vendas/{id}")),
+            id => Results.CreatedAtRoute("ObterPorId", new RouteValueDictionary { { "id", id } }),
             validacao => validacao.ToUnprocessableEntityProblemDetails()
         );
     }

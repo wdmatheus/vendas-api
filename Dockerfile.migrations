@@ -26,7 +26,8 @@ RUN dotnet tool install --global dotnet-ef && \
 
 FROM runtime AS runner
 
-RUN apt-get update && apt-get install -y libicu-dev --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libicu-dev --no-install-recommends && rm -rf /var/lib/apt/lists/* && \
+    export PATH="$PATH:/root/.dotnet/tools"
 
 COPY --from=build /root/.dotnet/ /root/.dotnet/
 COPY --from=build /source/src/Vendas.Data/efbundle /efmigrations/
