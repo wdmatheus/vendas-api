@@ -75,7 +75,7 @@ docker compose -f compose.yaml -f compose.arm64.yaml up
 ```
 ou
 ```bash
-sh ./up-arm64.sh
+sh ./up.arm64.sh
 ```
 
 A aplicação estará disponível em `http://localhost:5050`. A documentação da API estará disponível em `http://localhost:5050/docs`.
