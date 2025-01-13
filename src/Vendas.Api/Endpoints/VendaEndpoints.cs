@@ -26,28 +26,33 @@ internal static class VendaEndpoints
             .Produces(StatusCodes.Status201Created)
             .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
             .Produces<ProblemDetails>(StatusCodes.Status422UnprocessableEntity)
+            .WithName("CriarVenda")
             .WithDescription("Cria uma venda");
 
         group.MapPut("{id:guid}", EditarAsync)
             .Produces(StatusCodes.Status204NoContent)
             .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
             .Produces<ProblemDetails>(StatusCodes.Status422UnprocessableEntity)
+            .WithName("EditarVenda")
             .WithDescription("Edita uma venda");
         
         group.MapPut("{id:guid}/cancelar", CancelarAsync)
             .Produces<VendaDto>()
             .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
+            .WithName("CancelarVenda")
             .WithDescription("Cancela uma venda");
         
         group.MapDelete("{id:guid}", RemoverAsync)
             .Produces(StatusCodes.Status204NoContent)
             .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
+            .WithName("RemoverVenda")
             .WithDescription("Remove uma venda");
         
         group.MapDelete("{id:guid}/itens/{idItemOuCodProduto}", RemoverItemAsync)
             .Produces<VendaDto>()
             .Produces(StatusCodes.Status204NoContent)
             .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
+            .WithName("RemoverItemVenda")
             .WithDescription("Remove um item da venda");
     }
 
